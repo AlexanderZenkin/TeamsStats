@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TeamsStats</string>
+    <string name="H2HMatches">Матчи между собой</string>
+    <string name="TeamsMatches">Последние матчи команд</string>
+    <string name="SearchButton">Поиск</string>
+    <string name="HomeTeamList">Дома</string>
+    <string name="ResultH2HList">Результат</string>
+    <string name="AwayTeamList">В гостях</string>
+    <string name="league_champions">LC</string>
+    <string name="bundes_liga">DEU</string>
+    <string name="premier_league">ENG</string>
+    <string name="liga_a">ITA</string>
+    <string name="ligue_1">FRA</string>
+    <string name="eredivisie">NLD</string>
+    <string name="primera_division">ESP</string>
+    <string name="primera_liga">PPL</string>
+    <string name="next_matches">Вывести матчи на ближайщую неделю</string>
+</resources>
