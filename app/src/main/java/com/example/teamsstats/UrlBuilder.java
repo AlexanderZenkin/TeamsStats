@@ -52,7 +52,7 @@ public class UrlBuilder {
         return url;
     }
 
-    public URL builderUrlMatchesHomeTeam(String teamsId, String competitions) {
+    public URL builderUrlMatchesHomeTeam(String teamsId, String competitions, String venue) {
 
         String BASE_URL = "http://api.football-data.org/v4";
         Uri buildUri = Uri.parse(BASE_URL).buildUpon()
@@ -62,7 +62,7 @@ public class UrlBuilder {
                 .appendQueryParameter("limit", "10")
                 .appendQueryParameter("competitions", competitions)
                 .appendQueryParameter("status", "FINISHED")
-                .appendQueryParameter("venue", "HOME")
+                .appendQueryParameter("venue", venue)
                 .build();
 
         URL url = null;

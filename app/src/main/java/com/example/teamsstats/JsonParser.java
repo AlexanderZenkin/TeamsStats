@@ -43,4 +43,13 @@ public class JsonParser {
         }
         return matchList;
     }
+
+    public String getIdTeam(String output, String homeOrAway) throws JSONException {
+
+        JSONObject resultJson = new JSONObject(output);
+        JSONArray matches = resultJson.getJSONArray("aggregates");
+
+        JSONObject objH = matches.getJSONObject(0).getJSONObject(homeOrAway);
+        return objH.getString("id");
+    }
 }

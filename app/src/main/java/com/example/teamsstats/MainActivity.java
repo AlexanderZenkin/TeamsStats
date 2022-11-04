@@ -24,7 +24,9 @@ import java.time.Instant;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse, ListItemClickListener {
 
     private static final String TAG = "MainActivity";
-    ListMatches matches;
+    private ListMatches matches;
+    private String idHomeTeam;
+    private String idAwayTeam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +59,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public ListMatches processFinish(String output) {
+    public void processFinish(String output) {
         Log.d(TAG, "processFinish: " + output);
 
         try {
 
             JsonParser jsonParser = new JsonParser();
             matches = jsonParser.gsonParser(output);
+
+            idHomeTeam = jsonParser.getIdTeam(output, "homeTeam");
+            idAwayTeam = jsonParser.getIdTeam(output, "awayTeam");
 
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -74,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override
@@ -135,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String id = matches.listMatches[clickItemIndex].getMatchId();
         Intent intent = new Intent(this, ViewActivity.class);
         intent.putExtra("matchId", id);
+        intent.putExtra("homeTeamId", idHomeTeam);
+        intent.putExtra("awayTeamId", idAwayTeam);
         startActivity(intent);
     }
 }

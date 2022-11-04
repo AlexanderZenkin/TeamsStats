@@ -5,15 +5,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/search_last_h2h_matches"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:background="@color/purple_700"
-        android:layout_marginStart="10dp"
-        android:text="@string/H2HMatches" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/h_2_h_matches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/H2HMatches"/>
+
+        <Button
+            android:id="@+id/home_team_matches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/home_team_matches" />
+
+        <Button
+            android:id="@+id/away_team_matches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/away_team_matches" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -21,33 +38,4 @@
         android:layout_height="wrap_content">
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/search_last_matched"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:background="@color/purple_700"
-        android:layout_marginStart="10dp"
-        android:text="@string/TeamsMatches" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view1"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </androidx.recyclerview.widget.RecyclerView>/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view2"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </androidx.recyclerview.widget.RecyclerView>/>
-        </LinearLayout>
 </LinearLayout>

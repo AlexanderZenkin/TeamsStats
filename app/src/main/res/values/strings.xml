@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">TeamsStats</string>
-    <string name="H2HMatches">Матчи между собой</string>
-    <string name="TeamsMatches">Показать последние матчи команд</string>
+    <string name="H2HMatches">H2H</string>
+    <string name="home_team_matches">HTM</string>
+    <string name="away_team_matches">ATM</string>
     <string name="SearchButton">Поиск</string>
     <string name="HomeTeamList">Дома</string>
     <string name="ResultH2HList">Результат</string>
