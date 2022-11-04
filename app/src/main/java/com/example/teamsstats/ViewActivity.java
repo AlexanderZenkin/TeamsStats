@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,75 +15,86 @@ import com.example.teamsstats.interfaces.AsyncResponse;
 import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.ListMatches;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URL;
 
-public class ViewActivity extends Activity implements AsyncResponse, ListItemClickListener {
+public class ViewActivity extends Activity implements AsyncResponse, ListItemClickListener, View.OnClickListener {
 
     private static final String TAG = "ViewActivity";
 
-    private ListMatches matchList;
+    private Button searchLastMatches;
+    private Button searchH2HMatches;
+
+    ListMatches matches;
+    String matchId;
 
     @Override
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
-        Intent intent = getIntent();
-        String matchId = intent.getStringExtra("matchId");
+        searchLastMatches = findViewById(R.id.search_last_matched);
+        searchLastMatches.setOnClickListener(this);
 
-        UrlBuilder urlBuilder = new UrlBuilder();
-        URL url = urlBuilder.builderUrlH2HMatches(matchId);
-        new GetData(this).execute(url);
+        searchH2HMatches = findViewById(R.id.search_last_h2h_matches);
+        searchH2HMatches.setOnClickListener(this);
 
     }
 
     @Override
-    public void processFinish(String output) {
+    public ListMatches processFinish(String output) {
         Log.d(TAG, "processFinish: " + output);
 
+        JsonParser jsonParser = new JsonParser();
+        matches = null;
         try {
-
-            JSONObject resultJson = new JSONObject(output);
-            JSONArray matches = resultJson.getJSONArray("matches");
-
-            matchList = new ListMatches(matches.length());
-
-            for (int i = 0; i < matches.length(); i++) {
-
-                JSONObject objH = matches.getJSONObject(i).getJSONObject("homeTeam");
-                String homeTeamName = objH.getString("shortName");
-
-                JSONObject objHResult = matches.getJSONObject(i).getJSONObject("score");
-                JSONObject homeTeamResults = objHResult.getJSONObject("fullTime");
-                String homeTeamResult = homeTeamResults.getString("home");
-
-                JSONObject objA = matches.getJSONObject(i).getJSONObject("awayTeam");
-                String awayTeamName = objA.getString("shortName");
-
-                JSONObject objAResult = matches.getJSONObject(i).getJSONObject("score");
-                JSONObject awayTeamResults = objAResult.getJSONObject("fullTime");
-                String awayTeamResult = awayTeamResults.getString("away");
-
-                matchList.addMatch(homeTeamName, awayTeamName, homeTeamResult + ":" + awayTeamResult, null, i);
-            }
-
-            RecyclerView recyclerView = findViewById(R.id.recycler_view);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setAdapter(new MyAdapter(matchList, matches.length(), this));
-
-
+            matches = jsonParser.gsonParser(output);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return matches;
     }
 
     @Override
     public void onListItemClick(int clickItemIndex) {
 
+    }
+
+    public void setView(int id, ListMatches listMatches) {
+
+        RecyclerView recyclerView = findViewById(id);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new MyAdapter(listMatches, listMatches.listMatches.length, this));
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        Intent intent = getIntent();
+        matchId = intent.getStringExtra("matchId");
+
+        GetData getData = new GetData(this);
+        UrlBuilder urlBuilder = new UrlBuilder();
+
+        URL urlH2HMatches;
+        URL urlHomeTEam;
+
+        switch (view.getId()) {
+            case R.id.search_last_h2h_matches:
+                urlH2HMatches = urlBuilder.builderUrlH2HMatches(matchId);
+
+                processFinish(getData.execute(urlH2HMatches).toString());
+                setView(R.id.recycler_view, matches);
+                break;
+
+            case R.id.search_last_matched:
+                urlHomeTEam = urlBuilder.builderUrlMatchesHomeTeam("65", "2021");
+                getData.execute(urlHomeTEam);
+                setView(R.id.recycler_view1, matches);
+                break;
+        }
     }
 }

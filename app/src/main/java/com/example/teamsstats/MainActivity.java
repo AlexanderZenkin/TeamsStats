@@ -15,9 +15,7 @@ import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.DateTimeFormater;
 import com.example.teamsstats.model.ListMatches;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URL;
 import java.time.Duration;
@@ -26,81 +24,57 @@ import java.time.Instant;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse, ListItemClickListener {
 
     private static final String TAG = "MainActivity";
-    private ListMatches matchList;
-
-    private Button searchLeagueChampions;
-    private Button searchBundesLeague;
-    private Button searchPremierLeague;
-    private Button searchLeagueA;
-
-    private Button searchLeagueFrance;
-    private Button searchNetherlands;
-    private Button searchSpain;
-    private Button searchPortugal;
+    ListMatches matches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        searchLeagueChampions = findViewById(R.id.search_league_champions);
+        Button searchLeagueChampions = findViewById(R.id.search_league_champions);
         searchLeagueChampions.setOnClickListener(this);
 
-        searchBundesLeague = findViewById(R.id.search_league_germany);
+        Button searchBundesLeague = findViewById(R.id.search_league_germany);
         searchBundesLeague.setOnClickListener(this);
 
-        searchPremierLeague = findViewById(R.id.search_league_england);
+        Button searchPremierLeague = findViewById(R.id.search_league_england);
         searchPremierLeague.setOnClickListener(this);
 
-        searchLeagueA = findViewById(R.id.search_league_italy);
+        Button searchLeagueA = findViewById(R.id.search_league_italy);
         searchLeagueA.setOnClickListener(this);
 
-        searchLeagueFrance = findViewById(R.id.search_Ligue_1);
+        Button searchLeagueFrance = findViewById(R.id.search_Ligue_1);
         searchLeagueFrance.setOnClickListener(this);
 
-        searchNetherlands = findViewById(R.id.search_league_eredivisie);
+        Button searchNetherlands = findViewById(R.id.search_league_eredivisie);
         searchNetherlands.setOnClickListener(this);
 
-        searchSpain = findViewById(R.id.search_league_spain);
+        Button searchSpain = findViewById(R.id.search_league_spain);
         searchSpain.setOnClickListener(this);
 
-        searchPortugal = findViewById(R.id.search_primeira_liga);
+        Button searchPortugal = findViewById(R.id.search_primeira_liga);
         searchPortugal.setOnClickListener(this);
     }
 
     @Override
-    public void processFinish(String output) {
+    public ListMatches processFinish(String output) {
         Log.d(TAG, "processFinish: " + output);
 
         try {
 
-            JSONObject resultJson = new JSONObject(output);
-            JSONArray matches = resultJson.getJSONArray("matches");
-
-            matchList = new ListMatches(matches.length());
-
-            for (int i = 0; i < matches.length(); i++) {
-
-                String matchId = matches.getJSONObject(i).getString("id");
-
-                JSONObject objH = matches.getJSONObject(i).getJSONObject("homeTeam");
-                String homeTeamName = objH.getString("shortName");
-
-                JSONObject objA = matches.getJSONObject(i).getJSONObject("awayTeam");
-                String awayTeamName = objA.getString("shortName");
-
-                matchList.addMatch(homeTeamName, awayTeamName, "-" + ":" + "-", matchId, i);
-            }
+            JsonParser jsonParser = new JsonParser();
+            matches = jsonParser.gsonParser(output);
 
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setAdapter(new MyAdapter(matchList, matches.length(), this));
+            recyclerView.setAdapter(new MyAdapter(matches, matches.listMatches.length, this));
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override
@@ -158,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onListItemClick(int clickItemIndex) {
 
-        String id = matchList.listMatches[clickItemIndex].getMatchId();
+        String id = matches.listMatches[clickItemIndex].getMatchId();
         Intent intent = new Intent(this, ViewActivity.class);
         intent.putExtra("matchId", id);
         startActivity(intent);

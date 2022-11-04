@@ -1,5 +1,7 @@
 package com.example.teamsstats.interfaces;
 
+import com.example.teamsstats.model.ListMatches;
+
 public interface AsyncResponse {
-    void processFinish(String output);
+    ListMatches processFinish(String output);
 }
