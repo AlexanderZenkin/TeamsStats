@@ -13,6 +13,11 @@ public class JsonParser {
         JSONObject resultJson = new JSONObject(output);
         JSONArray matches = resultJson.getJSONArray("matches");
 
+        String idCompetition = null;
+
+        if(resultJson.has("competition"))
+            idCompetition = resultJson.getJSONObject("competition").getString("id");
+
         ListMatches matchList = new ListMatches(matches.length());
 
         for (int i = 0; i < matches.length(); i++) {
@@ -21,6 +26,9 @@ public class JsonParser {
 
             JSONObject objH = matches.getJSONObject(i).getJSONObject("homeTeam");
             String homeTeamName = objH.getString("shortName");
+
+            JSONObject objHomeTeamId = matches.getJSONObject(i).getJSONObject("homeTeam");
+            String idHomeTeam = objHomeTeamId.getString("id");
 
             JSONObject objHResult = matches.getJSONObject(i).getJSONObject("score");
             JSONObject homeTeamResults = objHResult.getJSONObject("fullTime");
@@ -32,6 +40,9 @@ public class JsonParser {
             JSONObject objA = matches.getJSONObject(i).getJSONObject("awayTeam");
             String awayTeamName = objA.getString("shortName");
 
+            JSONObject objAwayTeamId = matches.getJSONObject(i).getJSONObject("awayTeam");
+            String idAwayTeam = objAwayTeamId.getString("id");
+
             JSONObject objAResult = matches.getJSONObject(i).getJSONObject("score");
             JSONObject awayTeamResults = objAResult.getJSONObject("fullTime");
             String awayTeamResult = awayTeamResults.getString("away");
@@ -39,17 +50,9 @@ public class JsonParser {
                 awayTeamResult = "-";
             }
 
-            matchList.addMatch(homeTeamName, awayTeamName, homeTeamResult + ":" + awayTeamResult, matchId, i);
+            matchList.addMatch(homeTeamName, awayTeamName, homeTeamResult + ":" + awayTeamResult, matchId,
+                    idHomeTeam, idAwayTeam, idCompetition, i);
         }
         return matchList;
-    }
-
-    public String getIdTeam(String output, String homeOrAway) throws JSONException {
-
-        JSONObject resultJson = new JSONObject(output);
-        JSONArray matches = resultJson.getJSONArray("aggregates");
-
-        JSONObject objH = matches.getJSONObject(0).getJSONObject(homeOrAway);
-        return objH.getString("id");
     }
 }

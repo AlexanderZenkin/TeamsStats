@@ -30,6 +30,7 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
     private String matchId;
     private String idHomeTeam;
     private String idAwayTeam;
+    private String idCompetition;
     private ListMatches matches;
 
     @Override
@@ -80,8 +81,9 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
 
         Intent intent = getIntent();
         matchId = intent.getStringExtra("matchId");
-        idHomeTeam = intent.getStringExtra("homeTeamId");
-        idAwayTeam = intent.getStringExtra("awayTeamId");
+        idHomeTeam = intent.getStringExtra("idHomeTeam");
+        idAwayTeam = intent.getStringExtra("idAwayTeam");
+        idCompetition = intent.getStringExtra("idCompetition");
 
         UrlBuilder urlBuilder = new UrlBuilder();
         URL url;
@@ -94,12 +96,12 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
                 break;
 
             case R.id.home_team_matches:
-                url = urlBuilder.builderUrlMatchesHomeTeam(idHomeTeam, "2021", "HOME");
+                url = urlBuilder.builderUrlMatchesHomeTeam(idHomeTeam, idCompetition, "HOME");
                 getData.execute(url);
                 break;
 
             case R.id.away_team_matches:
-                url = urlBuilder.builderUrlMatchesHomeTeam(idAwayTeam, "2021", "AWAY");
+                url = urlBuilder.builderUrlMatchesHomeTeam(idAwayTeam, idCompetition, "AWAY");
                 getData.execute(url);
                 break;
         }

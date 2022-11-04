@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity";
     private ListMatches matches;
-    private String idHomeTeam;
-    private String idAwayTeam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             JsonParser jsonParser = new JsonParser();
             matches = jsonParser.gsonParser(output);
 
-            idHomeTeam = jsonParser.getIdTeam(output, "homeTeam");
-            idAwayTeam = jsonParser.getIdTeam(output, "awayTeam");
+
 
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -139,8 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String id = matches.listMatches[clickItemIndex].getMatchId();
         Intent intent = new Intent(this, ViewActivity.class);
         intent.putExtra("matchId", id);
-        intent.putExtra("homeTeamId", idHomeTeam);
-        intent.putExtra("awayTeamId", idAwayTeam);
+        intent.putExtra("idHomeTeam", matches.listMatches[clickItemIndex].getIdHomeTeam());
+        intent.putExtra("idAwayTeam", matches.listMatches[clickItemIndex].getIdAwayTeam());
+        intent.putExtra("idCompetition", matches.listMatches[clickItemIndex].getIdCompetition());
         startActivity(intent);
     }
 }
