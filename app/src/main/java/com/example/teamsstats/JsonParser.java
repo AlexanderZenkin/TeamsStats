@@ -23,29 +23,15 @@ public class JsonParser {
         for (int i = 0; i < matches.length(); i++) {
 
             String matchId = matches.getJSONObject(i).getString("id");
-
-            JSONObject objH = matches.getJSONObject(i).getJSONObject("homeTeam");
-            String homeTeamName = objH.getString("shortName");
-
-            JSONObject objHomeTeamId = matches.getJSONObject(i).getJSONObject("homeTeam");
-            String idHomeTeam = objHomeTeamId.getString("id");
-
-            JSONObject objHResult = matches.getJSONObject(i).getJSONObject("score");
-            JSONObject homeTeamResults = objHResult.getJSONObject("fullTime");
-            String homeTeamResult = homeTeamResults.getString("home");
+            String homeTeamName = matches.getJSONObject(i).getJSONObject("homeTeam").getString("shortName");
+            String idHomeTeam = matches.getJSONObject(i).getJSONObject("homeTeam").getString("id");
+            String homeTeamResult = matches.getJSONObject(i).getJSONObject("score").getJSONObject("fullTime").getString("home");
             if (homeTeamResult.equals("null")) {
                 homeTeamResult = "-";
             }
-
-            JSONObject objA = matches.getJSONObject(i).getJSONObject("awayTeam");
-            String awayTeamName = objA.getString("shortName");
-
-            JSONObject objAwayTeamId = matches.getJSONObject(i).getJSONObject("awayTeam");
-            String idAwayTeam = objAwayTeamId.getString("id");
-
-            JSONObject objAResult = matches.getJSONObject(i).getJSONObject("score");
-            JSONObject awayTeamResults = objAResult.getJSONObject("fullTime");
-            String awayTeamResult = awayTeamResults.getString("away");
+            String awayTeamName = matches.getJSONObject(i).getJSONObject("awayTeam").getString("shortName");
+            String idAwayTeam = matches.getJSONObject(i).getJSONObject("awayTeam").getString("id");
+            String awayTeamResult = matches.getJSONObject(i).getJSONObject("score").getJSONObject("fullTime").getString("away");
             if (awayTeamResult.equals("null")) {
                 awayTeamResult = "-";
             }

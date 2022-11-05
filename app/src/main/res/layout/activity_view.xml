@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@color/purple_500"
+        android:text="@string/statistic"
+        />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +40,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/away_team_matches" />
+
+        <Button
+            android:id="@+id/turnament_table"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/turnament_table" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,5 +54,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/stavka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:visibility="invisible"
+        android:text="MARATHONBET" />
 
 </LinearLayout>

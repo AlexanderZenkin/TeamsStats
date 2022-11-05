@@ -2,6 +2,7 @@ package com.example.teamsstats;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,8 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
     private Button searchLastMatchesHomeTeam;
     private Button searchH2HMatches;
     private Button searchLastMatchesAwayTeam;
+    private Button stavka;
+    private Button getTournamentTable;
 
     private String matchId;
     private String idHomeTeam;
@@ -40,6 +43,12 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
 
         searchLastMatchesHomeTeam = findViewById(R.id.h_2_h_matches);
         searchLastMatchesHomeTeam.setOnClickListener(this);
+
+        stavka = findViewById(R.id.stavka);
+        stavka.setOnClickListener(this);
+
+        getTournamentTable = findViewById(R.id.turnament_table);
+        getTournamentTable.setOnClickListener(this);
 
         searchH2HMatches = findViewById(R.id.home_team_matches);
         searchH2HMatches.setOnClickListener(this);
@@ -73,7 +82,7 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
         RecyclerView recyclerView = findViewById(id);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new MyAdapter(listMatches, listMatches.listMatches.length, this));
+        recyclerView.setAdapter(new AdapterMatchesList(listMatches, listMatches.listMatches.length, this));
     }
 
     @Override
@@ -93,16 +102,31 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
             case R.id.h_2_h_matches:
                 url = urlBuilder.builderUrlH2HMatches(matchId);
                 getData.execute(url);
+                stavka.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.home_team_matches:
                 url = urlBuilder.builderUrlMatchesHomeTeam(idHomeTeam, idCompetition, "HOME");
                 getData.execute(url);
+                stavka.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.away_team_matches:
                 url = urlBuilder.builderUrlMatchesHomeTeam(idAwayTeam, idCompetition, "AWAY");
                 getData.execute(url);
+                stavka.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.turnament_table:
+                Intent newIntent = new Intent(ViewActivity.this, TableActivity.class);
+                newIntent.putExtra("idCompetition", idCompetition);
+                startActivity(newIntent);
+                break;
+
+            case R.id.stavka:
+                Uri address = Uri.parse("https://www.marathonbet.ru/");
+                Intent openlink = new Intent(Intent.ACTION_VIEW, address);
+                startActivity(openlink);
                 break;
         }
     }

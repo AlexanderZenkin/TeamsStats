@@ -74,4 +74,23 @@ public class UrlBuilder {
         Log.d(TAG, "builderUrl: " + url);
         return url;
     }
+
+    public URL builderUrlTournamentTable(String competitions) {
+
+        String BASE_URL = "http://api.football-data.org/v4";
+        Uri buildUri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath("competitions")
+                .appendPath(competitions)
+                .appendPath("standings")
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(buildUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "builderUrl: " + url);
+        return url;
+    }
 }

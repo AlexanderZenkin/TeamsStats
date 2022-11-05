@@ -29,6 +29,9 @@
         <activity
             android:name="com.example.teamsstats.ViewActivity">
         </activity>
+        <activity
+            android:name="com.example.teamsstats.TableActivity">
+        </activity>
     </application>
 
 </manifest>

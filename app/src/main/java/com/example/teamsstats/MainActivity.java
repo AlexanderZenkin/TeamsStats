@@ -64,18 +64,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             JsonParser jsonParser = new JsonParser();
             matches = jsonParser.gsonParser(output);
-
-
-
-            RecyclerView recyclerView = findViewById(R.id.recycler_view);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(linearLayoutManager);
-            recyclerView.setAdapter(new MyAdapter(matches, matches.listMatches.length, this));
-
+            setView(R.id.recycler_view, matches);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setView(int id, ListMatches listMatches) {
+
+        RecyclerView recyclerView = findViewById(id);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(new AdapterMatchesList(listMatches, listMatches.listMatches.length, this));
     }
 
     @Override

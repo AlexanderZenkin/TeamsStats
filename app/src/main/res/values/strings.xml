@@ -16,4 +16,6 @@
     <string name="primera_division">ESP</string>
     <string name="primera_liga">PPL</string>
     <string name="next_matches">Вывести матчи на ближайщую неделю</string>
+    <string name="statistic">Статистика</string>
+    <string name="turnament_table">TTC</string>
 </resources>

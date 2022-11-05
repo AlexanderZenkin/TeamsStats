@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.ListMatches;
 
-public class MyAdapter extends RecyclerView.Adapter <MyAdapter.MyViewHolder> {
+public class AdapterMatchesList extends RecyclerView.Adapter <AdapterMatchesList.MyViewHolder> {
 
     final private ListItemClickListener mOnClickListener;
 
     private ListMatches listMatches;
     private int numberItems;
 
-    public MyAdapter(ListMatches listMatches, int length, ListItemClickListener listItemClickListener) {
+    public AdapterMatchesList(ListMatches listMatches, int length, ListItemClickListener listItemClickListener) {
 
         this.mOnClickListener = listItemClickListener;
         this.numberItems = length;
