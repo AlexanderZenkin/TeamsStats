@@ -1,6 +1,7 @@
 package com.example.teamsstats;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -28,8 +29,11 @@ public class TableActivity extends Activity implements AsyncResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament_table);
 
+        Intent intent = getIntent();
+        String idCompetition = intent.getStringExtra("idCompetition");
+
         UrlBuilder urlBuilder = new UrlBuilder();
-        URL url = urlBuilder.builderUrlTournamentTable("2021");
+        URL url = urlBuilder.builderUrlTournamentTable(idCompetition);
 
         GetData getData = new GetData(this);
         getData.execute(url);
