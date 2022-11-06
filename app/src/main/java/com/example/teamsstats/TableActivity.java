@@ -56,8 +56,15 @@ public class TableActivity extends Activity implements AsyncResponse {
                 String teamPosition = table.getJSONObject(i).getString("position");
                 String homeTeamName = table.getJSONObject(i).getJSONObject("team").getString("shortName");
                 String playedGames = table.getJSONObject(i).getString("playedGames");
+                String teamForm = table.getJSONObject(i).getString("form");
+                String teamWon = table.getJSONObject(i).getString("won");
+                String teamDraw = table.getJSONObject(i).getString("draw");
+                String teamLost = table.getJSONObject(i).getString("lost");
+                String teamGoalsFor = table.getJSONObject(i).getString("goalsFor");
+                String teamGoalsAgainst = table.getJSONObject(i).getString("goalsAgainst");
 
-                tableList.addMatch(teamPosition, homeTeamName, playedGames, i);
+                tableList.addMatch(teamPosition, homeTeamName, playedGames, teamForm,
+                        teamWon, teamDraw, teamLost, teamGoalsFor, teamGoalsAgainst, i);
             }
 
         } catch (JSONException e) {
