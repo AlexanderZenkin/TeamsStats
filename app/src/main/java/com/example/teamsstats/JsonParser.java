@@ -1,6 +1,7 @@
 package com.example.teamsstats;
 
 import com.example.teamsstats.model.ListMatches;
+import com.example.teamsstats.model.TableList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,5 +41,30 @@ public class JsonParser {
                     idHomeTeam, idAwayTeam, idCompetition, i);
         }
         return matchList;
+    }
+
+    public TableList gsonParserTable(String output, int element) throws JSONException {
+
+        JSONObject resultJson = new JSONObject(output);
+        JSONArray table = resultJson.getJSONArray("standings").getJSONObject(element).getJSONArray("table");
+
+        TableList tableList = new TableList(table.length());
+
+        for (int i = 0; i < table.length(); i++) {
+
+            String teamPosition = table.getJSONObject(i).getString("position");
+            String homeTeamName = table.getJSONObject(i).getJSONObject("team").getString("shortName");
+            String playedGames = table.getJSONObject(i).getString("playedGames");
+            String teamForm = table.getJSONObject(i).getString("form");
+            String teamWon = table.getJSONObject(i).getString("won");
+            String teamDraw = table.getJSONObject(i).getString("draw");
+            String teamLost = table.getJSONObject(i).getString("lost");
+            String teamGoalsFor = table.getJSONObject(i).getString("goalsFor");
+            String teamGoalsAgainst = table.getJSONObject(i).getString("goalsAgainst");
+
+            tableList.addMatch(teamPosition, homeTeamName, playedGames, teamForm,
+                    teamWon, teamDraw, teamLost, teamGoalsFor, teamGoalsAgainst, i);
+        }
+        return tableList;
     }
 }

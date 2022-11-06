@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,31 +16,39 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teamsstats.interfaces.AsyncResponse;
 import com.example.teamsstats.model.TableList;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URL;
 
-public class TableActivity extends Activity implements AsyncResponse {
+public class TableActivity extends Activity implements AsyncResponse, View.OnClickListener {
 
     private static final String TAG = "ViewActivity";
 
+    private Button getMatchesAll;
+    private Button getMatchesHome;
+    private Button getMatchesAway;
+
     private TableList tableList;
+    private TextView tournamentTableTv;
+    private TableRow tournamentTableHeaderTv;
+    private int count = 0;
 
     @Override
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament_table);
 
-        Intent intent = getIntent();
-        String idCompetition = intent.getStringExtra("idCompetition");
+        getMatchesAll = findViewById(R.id.total_matches);
+        getMatchesAll.setOnClickListener(this);
 
-        UrlBuilder urlBuilder = new UrlBuilder();
-        URL url = urlBuilder.builderUrlTournamentTable(idCompetition);
+        getMatchesHome = findViewById(R.id.matches_home);
+        getMatchesHome.setOnClickListener(this);
 
-        GetData getData = new GetData(this);
-        getData.execute(url);
+        getMatchesAway = findViewById(R.id.matches_away);
+        getMatchesAway.setOnClickListener(this);
+
+        tournamentTableTv = findViewById(R.id.tournament_table_tv);
+        tournamentTableHeaderTv = findViewById(R.id.tournament_table_header_tv);
     }
 
 
@@ -46,26 +58,8 @@ public class TableActivity extends Activity implements AsyncResponse {
         Log.d(TAG, "processFinish: " + output);
 
         try {
-            JSONObject resultJson = new JSONObject(output);
-            JSONArray table = resultJson.getJSONArray("standings").getJSONObject(0).getJSONArray("table");
-
-            tableList = new TableList(table.length());
-
-            for (int i = 0; i < table.length(); i++) {
-
-                String teamPosition = table.getJSONObject(i).getString("position");
-                String homeTeamName = table.getJSONObject(i).getJSONObject("team").getString("shortName");
-                String playedGames = table.getJSONObject(i).getString("playedGames");
-                String teamForm = table.getJSONObject(i).getString("form");
-                String teamWon = table.getJSONObject(i).getString("won");
-                String teamDraw = table.getJSONObject(i).getString("draw");
-                String teamLost = table.getJSONObject(i).getString("lost");
-                String teamGoalsFor = table.getJSONObject(i).getString("goalsFor");
-                String teamGoalsAgainst = table.getJSONObject(i).getString("goalsAgainst");
-
-                tableList.addMatch(teamPosition, homeTeamName, playedGames, teamForm,
-                        teamWon, teamDraw, teamLost, teamGoalsFor, teamGoalsAgainst, i);
-            }
+            JsonParser jsonParser = new JsonParser();
+            tableList = jsonParser.gsonParserTable(output, count);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -76,5 +70,44 @@ public class TableActivity extends Activity implements AsyncResponse {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new AdapterTournamentTable(tableList, tableList.tableList.length));
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+        Intent intent = getIntent();
+        String idCompetition = intent.getStringExtra("idCompetition");
+
+        UrlBuilder urlBuilder = new UrlBuilder();
+        URL url;
+
+        GetData getData = new GetData(this);
+
+        switch (view.getId()) {
+            case R.id.total_matches:
+                count = 0;
+                url = urlBuilder.builderUrlTournamentTable(idCompetition);
+                getData.execute(url);
+                tournamentTableTv.setVisibility(View.VISIBLE);
+                tournamentTableHeaderTv.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.matches_home:
+                count = 1;
+                url = urlBuilder.builderUrlTournamentTable(idCompetition);
+                getData.execute(url);
+                tournamentTableTv.setVisibility(View.VISIBLE);
+                tournamentTableHeaderTv.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.matches_away:
+                count = 2;
+                url = urlBuilder.builderUrlTournamentTable(idCompetition);
+                getData.execute(url);
+                tournamentTableTv.setVisibility(View.VISIBLE);
+                tournamentTableHeaderTv.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
