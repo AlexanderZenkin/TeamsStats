@@ -28,7 +28,7 @@ public class AdapterTournamentTable extends RecyclerView.Adapter <AdapterTournam
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.tournament_table, parent, false);
+        View view = inflater.inflate(R.layout.tournament_table_test, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(view);
 
         return viewHolder;
