@@ -3,12 +3,12 @@ package com.example.teamsstats;
 import static org.junit.Assert.assertEquals;
 
 import com.example.teamsstats.interfaces.APIService;
+import com.example.teamsstats.model.TableStandings;
 
 import org.junit.Test;
 
 import java.io.IOException;
 
-import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -32,7 +32,7 @@ public class ExampleUnitTest {
                 .build();
 
         APIService userService = retrofit.create(APIService.class);
-        Request test = userService.getUser("2021").execute().raw().request();
+        TableStandings test = userService.getUser("2021").execute().body();
 
         System.out.println("stop");
     }
