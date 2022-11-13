@@ -9,10 +9,10 @@ import java.net.URL;
 public class UrlBuilder {
 
     private static final String TAG = "builderUrl";
+    String BASE_URL = "http://api.football-data.org/v4";
 
     public URL builderUrlCLMatches(String dateFrom, String dateTo, String competitions) {
 
-        String BASE_URL = "http://api.football-data.org/v4";
         Uri buildUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath("competitions")
                 .appendPath(competitions)
@@ -34,7 +34,6 @@ public class UrlBuilder {
 
     public URL builderUrlH2HMatches(String match) {
 
-        String BASE_URL = "http://api.football-data.org/v4";
         Uri buildUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath("matches")
                 .appendPath(match)
@@ -54,7 +53,6 @@ public class UrlBuilder {
 
     public URL builderUrlMatchesHomeTeam(String teamsId, String competitions, String venue) {
 
-        String BASE_URL = "http://api.football-data.org/v4";
         Uri buildUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath("teams")
                 .appendPath(teamsId)
@@ -77,7 +75,6 @@ public class UrlBuilder {
 
     public URL builderUrlTournamentTable(String competitions) {
 
-        String BASE_URL = "http://api.football-data.org/v4";
         Uri buildUri = Uri.parse(BASE_URL).buildUpon()
                 .appendPath("competitions")
                 .appendPath(competitions)

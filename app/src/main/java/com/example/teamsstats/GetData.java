@@ -43,7 +43,6 @@ public class GetData extends AsyncTask <URL, Void, String>{
 
     public AsyncResponse delegate;
 
-    
     @Override
     protected void onPreExecute() {
         Log.d(TAG, "onPreExecute: called");
