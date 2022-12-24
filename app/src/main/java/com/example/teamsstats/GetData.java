@@ -67,6 +67,10 @@ public class GetData extends AsyncTask <URL, Void, String>{
     protected void onPostExecute(String result) {
         Log.d(TAG, "onPostExecute: called");
         Log.d(TAG, "onPostExecute: " + result);
-        delegate.processFinish(result);
+        if (result == null) {
+            delegate.processFinish("noResult");
+        } else {
+            delegate.processFinish(result);
+        }
     }
 }

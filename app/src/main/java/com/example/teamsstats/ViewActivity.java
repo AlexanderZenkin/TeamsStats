@@ -125,8 +125,8 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
 
             case R.id.stavka:
                 Uri address = Uri.parse("https://www.marathonbet.ru/");
-                Intent openlink = new Intent(Intent.ACTION_VIEW, address);
-                startActivity(openlink);
+                Intent openLink = new Intent(Intent.ACTION_VIEW, address);
+                startActivity(openLink);
                 break;
         }
     }

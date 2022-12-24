@@ -65,13 +65,11 @@ public class TableActivity extends Activity implements AsyncResponse, View.OnCli
             e.printStackTrace();
         }
 
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view_tournament_table);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(new AdapterTournamentTable(tableList, tableList.tableList.length));
     }
-
 
     @Override
     public void onClick(View view) {
