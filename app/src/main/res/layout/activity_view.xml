@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/_853433"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:textColor="@color/white"
         android:background="@color/purple_500"
+        android:gravity="center"
         android:text="@string/statistic"
-        />
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -26,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
 
-            android:text="@string/H2HMatches"/>
+            android:text="@string/H2HMatches" />
 
         <Button
             android:id="@+id/home_team_matches"
@@ -53,8 +52,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/stavka"
@@ -62,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
-        android:visibility="invisible"
-        android:text="MARATHONBET" />
+        android:text="MARATHONBET"
+        android:visibility="invisible" />
 
 </LinearLayout>

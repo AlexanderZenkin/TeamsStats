@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         String matchDayFrom = DateTimeFormater.dateTimeFormatter(Instant.now().getEpochSecond(), "yyyy-MM-dd");
-        String matchDayTo = DateTimeFormater.dateTimeFormatter(Instant.now().plus(Duration.ofDays(5)).getEpochSecond(), "yyyy-MM-dd");
+        String matchDayTo = DateTimeFormater.dateTimeFormatter(Instant.now().plus(Duration.ofDays(7)).getEpochSecond(), "yyyy-MM-dd");
         UrlBuilder urlBuilder = new UrlBuilder();
         URL url;
         GetData getData = new GetData(this);

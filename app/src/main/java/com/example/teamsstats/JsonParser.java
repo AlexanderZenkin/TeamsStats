@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JsonParser {
+public class JsonParser extends MainActivity {
 
     public ListMatches gsonParser(String output) throws JSONException {
 
@@ -16,7 +16,7 @@ public class JsonParser {
 
         String idCompetition = null;
 
-        if(resultJson.has("competition"))
+        if (resultJson.has("competition"))
             idCompetition = resultJson.getJSONObject("competition").getString("id");
 
         ListMatches matchList = new ListMatches(matches.length());
