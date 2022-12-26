@@ -12,14 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamsstats.interfaces.AsyncResponse;
 import com.example.teamsstats.interfaces.ListItemClickListener;
-import com.example.teamsstats.model.DateTimeFormater;
+import com.example.teamsstats.model.DateTimeFormatter;
 import com.example.teamsstats.model.ListMatches;
 
 import org.json.JSONException;
 
 import java.net.URL;
-import java.time.Duration;
-import java.time.Instant;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse, ListItemClickListener {
 
@@ -82,8 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        String matchDayFrom = DateTimeFormater.dateTimeFormatter(Instant.now().getEpochSecond(), "yyyy-MM-dd");
-        String matchDayTo = DateTimeFormater.dateTimeFormatter(Instant.now().plus(Duration.ofDays(7)).getEpochSecond(), "yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter = new DateTimeFormatter();
+        String matchDayFrom = dateTimeFormatter.dateTimeFormatter(new Date(), 0);
+        String matchDayTo = dateTimeFormatter.dateTimeFormatter(new Date(), 7);
+
         UrlBuilder urlBuilder = new UrlBuilder();
         URL url;
         GetData getData = new GetData(this);

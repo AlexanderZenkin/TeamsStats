@@ -51,7 +51,7 @@ public class GetData extends AsyncTask <URL, Void, String>{
 
     @Override
     protected String doInBackground(URL[] url) {
-        Log.d(TAG, "doInBackground: called");
+        Log.d(TAG, "doInBackground: called " + url[0].toString());
         String result = null;
         URL urlQuery = url[0];
 

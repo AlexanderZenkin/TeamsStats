@@ -4,11 +4,16 @@
     package="com.example.teamsstats">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
+        android:versionCode="1"
+        android:versionName="1.1"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
