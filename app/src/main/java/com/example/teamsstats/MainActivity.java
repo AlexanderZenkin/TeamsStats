@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity";
     private ListMatches matches;
+    private Toast toastError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void processFinish(String output) {
         Log.d(TAG, "processFinish: " + output);
+
+        if (output.equals("noResult")) {
+            int duration = Toast.LENGTH_LONG;
+            if (toastError != null) {
+                toastError.cancel();
+            }
+            toastError = Toast.makeText(this, R.string.ResponseLimit, duration);
+            toastError.show();
+        }
 
         try {
 

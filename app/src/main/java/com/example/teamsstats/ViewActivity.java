@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +37,8 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
     private String idCompetition;
     private ListMatches matches;
 
+    private Toast toastError;
+
     @Override
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,15 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
     @Override
     public void processFinish(String output) {
         Log.d(TAG, "processFinish: " + output);
+
+        if (output.equals("noResult")) {
+            int duration = Toast.LENGTH_LONG;
+            if (toastError != null) {
+                toastError.cancel();
+            }
+            toastError = Toast.makeText(this, R.string.ResponseLimit, duration);
+            toastError.show();
+        }
 
         try {
 

@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class GetData extends AsyncTask <URL, Void, String>{
+public class GetData extends AsyncTask <URL, Void, String> {
 
     public GetData(AsyncResponse delegate) {
         this.delegate = delegate;

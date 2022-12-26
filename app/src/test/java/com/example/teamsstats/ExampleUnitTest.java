@@ -33,7 +33,5 @@ public class ExampleUnitTest {
 
         APIService userService = retrofit.create(APIService.class);
         TableStandings test = userService.getUser("2021").execute().body();
-
-        System.out.println("stop");
     }
 }
