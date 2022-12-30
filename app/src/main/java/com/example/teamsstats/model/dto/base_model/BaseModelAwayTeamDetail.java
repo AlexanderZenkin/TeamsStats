@@ -3,15 +3,8 @@ package com.example.teamsstats.model.dto.base_model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseModelHomeTeam {
+public class BaseModelAwayTeamDetail {
 
     @JsonProperty("id")
     Integer id;
@@ -19,14 +12,14 @@ public class BaseModelHomeTeam {
     @JsonProperty("name")
     String name;
 
-    @JsonProperty("wins")
-    Integer wins;
+    @JsonProperty("shortName")
+    String shortName;
 
-    @JsonProperty("draws")
-    Integer draws;
+    @JsonProperty("tla")
+    String tla;
 
-    @JsonProperty("losses")
-    Integer losses;
+    @JsonProperty("crest")
+    String crest;
 
     public Integer getId() {
         return id;
@@ -36,15 +29,15 @@ public class BaseModelHomeTeam {
         return name;
     }
 
-    public Integer getWins() {
-        return wins;
+    public String getShortName() {
+        return shortName;
     }
 
-    public Integer getDraws() {
-        return draws;
+    public String getTla() {
+        return tla;
     }
 
-    public Integer getLosses() {
-        return losses;
+    public String getCrest() {
+        return crest;
     }
 }

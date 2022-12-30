@@ -32,8 +32,8 @@ public class ExampleUnitTest {
                 .build();
 
         APIService userService = retrofit.create(APIService.class);
-        FullModelH2HMatches test = userService.getH2HMatches("416240", "6").execute().body();
+        FullModelH2HMatches test = userService.getH2HMatches("416242", "6").execute().body();
 
-        System.out.println("stop");
+        System.out.println(test);
     }
 }

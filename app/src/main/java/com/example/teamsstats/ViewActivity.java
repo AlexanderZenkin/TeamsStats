@@ -17,8 +17,7 @@ import com.example.teamsstats.interfaces.AsyncResponse;
 import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.ListMatches;
 
-import org.json.JSONException;
-
+import java.io.IOException;
 import java.net.URL;
 
 public class ViewActivity extends Activity implements AsyncResponse, ListItemClickListener, View.OnClickListener {
@@ -76,10 +75,10 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
         try {
 
             JsonParser jsonParser = new JsonParser();
-            matches = jsonParser.gsonParser(output);
+            matches = jsonParser.inflateListMatches(new GetDataRetrofit().getDataH2HMatches("416242", "6"));
             setView(R.id.recycler_view, matches);
 
-        } catch (JSONException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

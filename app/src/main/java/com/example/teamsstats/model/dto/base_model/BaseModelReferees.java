@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseModelHomeTeam {
+public class BaseModelReferees {
 
     @JsonProperty("id")
     Integer id;
@@ -19,14 +19,11 @@ public class BaseModelHomeTeam {
     @JsonProperty("name")
     String name;
 
-    @JsonProperty("wins")
-    Integer wins;
+    @JsonProperty("type")
+    String type;
 
-    @JsonProperty("draws")
-    Integer draws;
-
-    @JsonProperty("losses")
-    Integer losses;
+    @JsonProperty("nationality")
+    String nationality;
 
     public Integer getId() {
         return id;
@@ -36,15 +33,11 @@ public class BaseModelHomeTeam {
         return name;
     }
 
-    public Integer getWins() {
-        return wins;
+    public String getType() {
+        return type;
     }
 
-    public Integer getDraws() {
-        return draws;
-    }
-
-    public Integer getLosses() {
-        return losses;
+    public String getNationality() {
+        return nationality;
     }
 }

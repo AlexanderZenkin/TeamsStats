@@ -24,4 +24,20 @@ public class BaseModelResultSet {
 
     @JsonProperty("last")
     String last;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public String getCompetitions() {
+        return competitions;
+    }
+
+    public String getFirst() {
+        return first;
+    }
+
+    public String getLast() {
+        return last;
+    }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseModelAwayTeam {
+public class BaseModelArea {
 
     @JsonProperty("id")
     Integer id;
@@ -12,14 +12,11 @@ public class BaseModelAwayTeam {
     @JsonProperty("name")
     String name;
 
-    @JsonProperty("wins")
-    Integer wins;
+    @JsonProperty("code")
+    String code;
 
-    @JsonProperty("draws")
-    Integer draws;
-
-    @JsonProperty("losses")
-    Integer losses;
+    @JsonProperty("flag")
+    String flag;
 
     public Integer getId() {
         return id;
@@ -29,15 +26,11 @@ public class BaseModelAwayTeam {
         return name;
     }
 
-    public Integer getWins() {
-        return wins;
+    public String getCode() {
+        return code;
     }
 
-    public Integer getDraws() {
-        return draws;
-    }
-
-    public Integer getLosses() {
-        return losses;
+    public String getFlag() {
+        return flag;
     }
 }

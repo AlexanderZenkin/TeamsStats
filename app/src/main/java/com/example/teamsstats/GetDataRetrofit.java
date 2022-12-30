@@ -10,16 +10,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class GetDataRetrofit {
 
-    public FullModelH2HMatches getDataH2HMatches(String matchId) throws IOException {
+    public FullModelH2HMatches getDataH2HMatches(String matchId, String limit) throws IOException {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.football-data.org/v4/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
         APIService userService = retrofit.create(APIService.class);
-        FullModelH2HMatches test = userService.getH2HMatches(matchId, "6").execute().body();
-        return test;
+        return userService.getH2HMatches(matchId, limit).execute().body();
     }
-
-
 }

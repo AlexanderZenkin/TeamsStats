@@ -11,19 +11,19 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseModelFilters {
+public class BaseModelHalfTime {
 
-    @JsonProperty("limit")
-    String limit;
+    @JsonProperty("home")
+    String home;
 
-    @JsonProperty("permission")
-    String permission;
+    @JsonProperty("away")
+    String away;
 
-    public String getLimit() {
-        return limit;
+    public String getHome() {
+        return home;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getAway() {
+        return away;
     }
 }

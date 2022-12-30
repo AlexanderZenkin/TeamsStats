@@ -2,12 +2,40 @@ package com.example.teamsstats;
 
 import com.example.teamsstats.model.ListMatches;
 import com.example.teamsstats.model.TableList;
+import com.example.teamsstats.model.dto.full_model.FullModelH2HMatches;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonParser extends MainActivity {
+
+    public ListMatches inflateListMatches(FullModelH2HMatches fullModelH2HMatches) {
+        ListMatches matchList = new ListMatches(fullModelH2HMatches.getMatches().size());
+
+        String idCompetition = null;
+
+        for (int i = 0; i < fullModelH2HMatches.getMatches().size(); i++) {
+            String matchId = fullModelH2HMatches.getMatches().get(i).getId().toString();
+            String homeTeamName = fullModelH2HMatches.getMatches().get(i).getHomeTeam().getShortName();
+            String idHomeTeam = fullModelH2HMatches.getMatches().get(i).getHomeTeam().getId().toString();
+            String homeTeamResult = fullModelH2HMatches.getMatches().get(i).getScore().getFullTime().getHome();
+            if (homeTeamResult.equals("null")) {
+                homeTeamResult = "-";
+            }
+            String awayTeamName = fullModelH2HMatches.getMatches().get(i).getAwayTeam().getShortName();
+            String idAwayTeam = fullModelH2HMatches.getMatches().get(i).getAwayTeam().getId().toString();
+            String awayTeamResult = fullModelH2HMatches.getMatches().get(i).getScore().getFullTime().getAway();
+            if (awayTeamResult.equals("null")) {
+                awayTeamResult = "-";
+            }
+
+            matchList.addMatch(homeTeamName, awayTeamName, homeTeamResult + ":" + awayTeamResult, matchId,
+                    idHomeTeam, idAwayTeam, idCompetition, i);
+        }
+
+        return matchList;
+    }
 
     public ListMatches gsonParser(String output) throws JSONException {
 
