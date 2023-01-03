@@ -1,6 +1,5 @@
 package com.example.teamsstats;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,17 +9,22 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamsstats.interfaces.AsyncResponse;
 import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.ListMatches;
+import com.example.teamsstats.model.dto.full_model.FullModelH2HMatches;
 
-import java.io.IOException;
+import org.json.JSONException;
+
 import java.net.URL;
 
-public class ViewActivity extends Activity implements AsyncResponse, ListItemClickListener, View.OnClickListener {
+public class ViewActivity extends AppCompatActivity implements AsyncResponse, ListItemClickListener, View.OnClickListener {
 
     private static final String TAG = "ViewActivity";
 
@@ -37,6 +41,8 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
     private ListMatches matches;
 
     private Toast toastError;
+
+    private ViewViewModel viewViewModel;
 
     @Override
     protected void onCreate(@NonNull Bundle savedInstanceState) {
@@ -73,12 +79,11 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
         }
 
         try {
-
             JsonParser jsonParser = new JsonParser();
-            matches = jsonParser.inflateListMatches(new GetDataRetrofit().getDataH2HMatches("416242", "6"));
+            matches = jsonParser.gsonParser(output);
             setView(R.id.recycler_view, matches);
 
-        } catch (IOException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -86,6 +91,21 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
     @Override
     public void onListItemClick(int clickItemIndex) {
 
+    }
+
+    public void getDataStatistic() {
+
+        viewViewModel = new ViewModelProvider(this).get(ViewViewModel.class);
+        viewViewModel.loadH2HMatches(matchId);
+        viewViewModel.getMutableLiveData().observe(this, new Observer<FullModelH2HMatches>() {
+            @Override
+            public void onChanged(FullModelH2HMatches fullModelH2HMatches) {
+
+                JsonParser jsonParser = new JsonParser();
+                matches = jsonParser.inflateListMatches(fullModelH2HMatches);
+                setView(R.id.recycler_view, matches);
+            }
+        });
     }
 
     public void setView(int id, ListMatches listMatches) {
@@ -111,8 +131,7 @@ public class ViewActivity extends Activity implements AsyncResponse, ListItemCli
 
         switch (view.getId()) {
             case R.id.h_2_h_matches:
-                url = urlBuilder.builderUrlH2HMatches(matchId);
-                getData.execute(url);
+                getDataStatistic();
                 stavka.setVisibility(View.VISIBLE);
                 break;
 

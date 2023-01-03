@@ -1,6 +1,5 @@
 package com.example.teamsstats;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +21,7 @@ import org.json.JSONException;
 
 import java.net.URL;
 
-public class TableActivity extends Activity implements AsyncResponse, View.OnClickListener {
+public class TableActivity extends AppCompatActivity implements AsyncResponse, View.OnClickListener {
 
     private static final String TAG = "ViewActivity";
 

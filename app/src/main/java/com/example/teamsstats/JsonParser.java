@@ -13,27 +13,25 @@ public class JsonParser extends MainActivity {
     public ListMatches inflateListMatches(FullModelH2HMatches fullModelH2HMatches) {
         ListMatches matchList = new ListMatches(fullModelH2HMatches.getMatches().size());
 
-        String idCompetition = null;
-
         for (int i = 0; i < fullModelH2HMatches.getMatches().size(); i++) {
-            String matchId = fullModelH2HMatches.getMatches().get(i).getId().toString();
-            String homeTeamName = fullModelH2HMatches.getMatches().get(i).getHomeTeam().getShortName();
-            String idHomeTeam = fullModelH2HMatches.getMatches().get(i).getHomeTeam().getId().toString();
             String homeTeamResult = fullModelH2HMatches.getMatches().get(i).getScore().getFullTime().getHome();
             if (homeTeamResult.equals("null")) {
                 homeTeamResult = "-";
             }
-            String awayTeamName = fullModelH2HMatches.getMatches().get(i).getAwayTeam().getShortName();
-            String idAwayTeam = fullModelH2HMatches.getMatches().get(i).getAwayTeam().getId().toString();
             String awayTeamResult = fullModelH2HMatches.getMatches().get(i).getScore().getFullTime().getAway();
             if (awayTeamResult.equals("null")) {
                 awayTeamResult = "-";
             }
 
-            matchList.addMatch(homeTeamName, awayTeamName, homeTeamResult + ":" + awayTeamResult, matchId,
-                    idHomeTeam, idAwayTeam, idCompetition, i);
+            matchList.addMatch(fullModelH2HMatches.getMatches().get(i).getHomeTeam().getShortName(),
+                    fullModelH2HMatches.getMatches().get(i).getAwayTeam().getShortName(),
+                    homeTeamResult + ":" + awayTeamResult,
+                    fullModelH2HMatches.getMatches().get(i).getId().toString(),
+                    fullModelH2HMatches.getMatches().get(i).getHomeTeam().getId().toString(),
+                    fullModelH2HMatches.getMatches().get(i).getAwayTeam().getId().toString(),
+                    null,
+                    i);
         }
-
         return matchList;
     }
 
