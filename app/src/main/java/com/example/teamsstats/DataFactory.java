@@ -10,7 +10,7 @@ public class DataFactory {
 
     private static APIService apiService;
 
-    public static APIService getDataH2HMatches() {
+    public static APIService getData() {
         if (apiService == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://api.football-data.org/v4/")

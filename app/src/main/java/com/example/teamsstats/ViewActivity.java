@@ -3,10 +3,8 @@ package com.example.teamsstats;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,24 +13,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.teamsstats.interfaces.AsyncResponse;
+import com.example.teamsstats.activiti_model.ViewActivityModel;
 import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.ListMatches;
 import com.example.teamsstats.model.dto.full_model.FullModelH2HMatches;
 
-import org.json.JSONException;
+public class ViewActivity extends AppCompatActivity implements ListItemClickListener, View.OnClickListener {
 
-import java.net.URL;
-
-public class ViewActivity extends AppCompatActivity implements AsyncResponse, ListItemClickListener, View.OnClickListener {
-
-    private static final String TAG = "ViewActivity";
-
-    private Button searchLastMatchesHomeTeam;
-    private Button searchH2HMatches;
-    private Button searchLastMatchesAwayTeam;
-    private Button stavka;
-    private Button getTournamentTable;
+    private Button stake;
 
     private String matchId;
     private String idHomeTeam;
@@ -40,52 +28,27 @@ public class ViewActivity extends AppCompatActivity implements AsyncResponse, Li
     private String idCompetition;
     private ListMatches matches;
 
-    private Toast toastError;
-
-    private ViewViewModel viewViewModel;
+    private ViewActivityModel viewActivityModel;
 
     @Override
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
-        searchLastMatchesHomeTeam = findViewById(R.id.h_2_h_matches);
+        Button searchLastMatchesHomeTeam = findViewById(R.id.h_2_h_matches);
         searchLastMatchesHomeTeam.setOnClickListener(this);
 
-        stavka = findViewById(R.id.stavka);
-        stavka.setOnClickListener(this);
+        stake = findViewById(R.id.stavka);
+        stake.setOnClickListener(this);
 
-        getTournamentTable = findViewById(R.id.turnament_table);
+        Button getTournamentTable = findViewById(R.id.turnament_table);
         getTournamentTable.setOnClickListener(this);
 
-        searchH2HMatches = findViewById(R.id.home_team_matches);
+        Button searchH2HMatches = findViewById(R.id.home_team_matches);
         searchH2HMatches.setOnClickListener(this);
 
-        searchLastMatchesAwayTeam = findViewById(R.id.away_team_matches);
+        Button searchLastMatchesAwayTeam = findViewById(R.id.away_team_matches);
         searchLastMatchesAwayTeam.setOnClickListener(this);
-    }
-
-    @Override
-    public void processFinish(String output) {
-        Log.d(TAG, "processFinish: " + output);
-
-        if (output.equals("noResult")) {
-            int duration = Toast.LENGTH_LONG;
-            if (toastError != null) {
-                toastError.cancel();
-            }
-            toastError = Toast.makeText(this, R.string.ResponseLimit, duration);
-            toastError.show();
-        }
-
-        try {
-            JsonParser jsonParser = new JsonParser();
-            matches = jsonParser.gsonParser(output);
-            setView(R.id.recycler_view, matches);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -93,11 +56,26 @@ public class ViewActivity extends AppCompatActivity implements AsyncResponse, Li
 
     }
 
-    public void getDataStatistic() {
+    public void getDataStatisticH2H() {
 
-        viewViewModel = new ViewModelProvider(this).get(ViewViewModel.class);
-        viewViewModel.loadH2HMatches(matchId);
-        viewViewModel.getMutableLiveData().observe(this, new Observer<FullModelH2HMatches>() {
+        viewActivityModel = new ViewModelProvider(this).get(ViewActivityModel.class);
+        viewActivityModel.loadH2HMatches(matchId);
+        viewActivityModel.getMutableLiveData().observe(this, new Observer<FullModelH2HMatches>() {
+            @Override
+            public void onChanged(FullModelH2HMatches fullModelH2HMatches) {
+
+                JsonParser jsonParser = new JsonParser();
+                matches = jsonParser.inflateListMatches(fullModelH2HMatches);
+                setView(R.id.recycler_view, matches);
+            }
+        });
+    }
+
+    public void getStatisticHomeAndAway(String idTeam, String competitions,String venue) {
+
+        viewActivityModel = new ViewModelProvider(this).get(ViewActivityModel.class);
+        viewActivityModel.loadHomeAndAwayMatches(idTeam,competitions, venue);
+        viewActivityModel.getMutableLiveData().observe(this, new Observer<FullModelH2HMatches>() {
             @Override
             public void onChanged(FullModelH2HMatches fullModelH2HMatches) {
 
@@ -125,26 +103,20 @@ public class ViewActivity extends AppCompatActivity implements AsyncResponse, Li
         idAwayTeam = intent.getStringExtra("idAwayTeam");
         idCompetition = intent.getStringExtra("idCompetition");
 
-        UrlBuilder urlBuilder = new UrlBuilder();
-        URL url;
-        GetData getData = new GetData(this);
-
         switch (view.getId()) {
             case R.id.h_2_h_matches:
-                getDataStatistic();
-                stavka.setVisibility(View.VISIBLE);
+                getDataStatisticH2H();
+                stake.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.home_team_matches:
-                url = urlBuilder.builderUrlMatchesHomeTeam(idHomeTeam, idCompetition, "HOME");
-                getData.execute(url);
-                stavka.setVisibility(View.VISIBLE);
+                getStatisticHomeAndAway(idHomeTeam, idCompetition, "HOME");
+                stake.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.away_team_matches:
-                url = urlBuilder.builderUrlMatchesHomeTeam(idAwayTeam, idCompetition, "AWAY");
-                getData.execute(url);
-                stavka.setVisibility(View.VISIBLE);
+                getStatisticHomeAndAway(idAwayTeam, idCompetition, "AWAY");
+                stake.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.turnament_table:

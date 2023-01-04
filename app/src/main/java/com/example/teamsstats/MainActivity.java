@@ -2,30 +2,28 @@ package com.example.teamsstats;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.teamsstats.interfaces.AsyncResponse;
+import com.example.teamsstats.activiti_model.MainActivityModel;
 import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.DateTimeFormatter;
 import com.example.teamsstats.model.ListMatches;
+import com.example.teamsstats.model.dto.full_model.FullModelScheduledMatches;
 
-import org.json.JSONException;
-
-import java.net.URL;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AsyncResponse, ListItemClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ListItemClickListener {
 
-    private static final String TAG = "MainActivity";
     private ListMatches matches;
-    private Toast toastError;
+
+    private MainActivityModel mainActivityModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +55,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchPortugal.setOnClickListener(this);
     }
 
-    @Override
-    public void processFinish(String output) {
-        Log.d(TAG, "processFinish: " + output);
+    public void getDataScheduledMatches(String competitions, String dateFrom, String dateTo, String status) {
 
-        if (output.equals("noResult")) {
-            int duration = Toast.LENGTH_LONG;
-            if (toastError != null) {
-                toastError.cancel();
+        mainActivityModel = new ViewModelProvider(this).get(MainActivityModel.class);
+        mainActivityModel.loadScheduledMatches(competitions, dateFrom, dateTo, status);
+        mainActivityModel.getMutableLiveData().observe(this, new Observer<FullModelScheduledMatches>() {
+            @Override
+            public void onChanged(FullModelScheduledMatches fullModelScheduledMatches) {
+
+                JsonParser jsonParser = new JsonParser();
+                matches = jsonParser.inflateScheduledMatches(fullModelScheduledMatches);
+                setView(R.id.recycler_view, matches);
             }
-            toastError = Toast.makeText(this, R.string.ResponseLimit, duration);
-            toastError.show();
-        }
-
-        try {
-
-            JsonParser jsonParser = new JsonParser();
-            matches = jsonParser.gsonParser(output);
-            setView(R.id.recycler_view, matches);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void setView(int id, ListMatches listMatches) {
@@ -96,49 +85,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String matchDayFrom = dateTimeFormatter.dateTimeFormatter(new Date(), 0);
         String matchDayTo = dateTimeFormatter.dateTimeFormatter(new Date(), 7);
 
-        UrlBuilder urlBuilder = new UrlBuilder();
-        URL url;
-        GetData getData = new GetData(this);
-
         switch (view.getId()) {
             case R.id.search_league_champions:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2001");
-                getData.execute(url);
+                getDataScheduledMatches("2001", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_league_germany:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2002");
-                getData.execute(url);
+                getDataScheduledMatches("2002", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_league_england:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2021");
-                getData.execute(url);
+                getDataScheduledMatches("2021", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_league_italy:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2019");
-                getData.execute(url);
+                getDataScheduledMatches("2019", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_league_eredivisie:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2003");
-                getData.execute(url);
+                getDataScheduledMatches("2003", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_league_spain:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2014");
-                getData.execute(url);
+                getDataScheduledMatches("2014", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_primeira_liga:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2017");
-                getData.execute(url);
+                getDataScheduledMatches("2017", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
 
             case R.id.search_Ligue_1:
-                url = urlBuilder.builderUrlCLMatches(matchDayFrom, matchDayTo, "2015");
-                getData.execute(url);
+                getDataScheduledMatches("2015", matchDayFrom, matchDayTo, "SCHEDULED");
                 break;
         }
     }

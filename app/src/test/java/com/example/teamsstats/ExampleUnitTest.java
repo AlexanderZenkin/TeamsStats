@@ -20,7 +20,10 @@ public class ExampleUnitTest {
     @Test
     public void testRetrofit() throws IOException {
 
-        var test = DataFactory.getDataH2HMatches().getH2HMatches("416242", "6");
+        var test = DataFactory.getData()
+                .getHomeAndAwayMatches("63", "10",
+                        "2021", "FINISHED", "AWAY");
+
 
         System.out.println(test);
     }
