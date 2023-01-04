@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListMatches matches;
 
     private MainActivityModel mainActivityModel;
+    private Toast toastError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +125,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onListItemClick(int clickItemIndex) {
 
-        String id = matches.listMatches[clickItemIndex].getMatchId();
+        int duration = Toast.LENGTH_LONG;
+        if (toastError != null) {
+            toastError.cancel();
+        }
+        toastError = Toast.makeText(this, matches.listMatches[clickItemIndex].getHomeTeam(), duration);
+        toastError.show();
+
         Intent intent = new Intent(this, ViewActivity.class);
-        intent.putExtra("matchId", id);
+        intent.putExtra("matchId", matches.listMatches[clickItemIndex].getMatchId());
         intent.putExtra("idHomeTeam", matches.listMatches[clickItemIndex].getIdHomeTeam());
         intent.putExtra("idAwayTeam", matches.listMatches[clickItemIndex].getIdAwayTeam());
         intent.putExtra("idCompetition", matches.listMatches[clickItemIndex].getIdCompetition());

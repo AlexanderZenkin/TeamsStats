@@ -119,4 +119,25 @@ public class BaseModelMatches {
     public Integer getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelMatches{" +
+                "area=" + area +
+                ", competition=" + competition +
+                ", season=" + season +
+                ", id=" + id +
+                ", utcDate='" + utcDate + '\'' +
+                ", status='" + status + '\'' +
+                ", matchday=" + matchday +
+                ", stage='" + stage + '\'' +
+                ", group=" + group +
+                ", lastUpdated='" + lastUpdated + '\'' +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                ", score=" + score +
+                ", odds=" + odds +
+                ", referees=" + referees +
+                '}';
+    }
 }

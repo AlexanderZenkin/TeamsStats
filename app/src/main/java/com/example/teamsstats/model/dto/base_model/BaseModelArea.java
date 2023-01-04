@@ -33,4 +33,14 @@ public class BaseModelArea {
     public String getFlag() {
         return flag;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelArea{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", flag='" + flag + '\'' +
+                '}';
+    }
 }

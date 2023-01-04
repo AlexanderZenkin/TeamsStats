@@ -38,7 +38,7 @@ public class TableActivityModel extends AndroidViewModel {
                     @Override
                     public void accept(FullModelTournamentTable fullModelTournamentTable) {
                         mutableLiveData.postValue(fullModelTournamentTable);
-                        Log.d(TAG, "acceptDownload: " + fullModelTournamentTable);
+                        Log.d(TAG, "acceptDownload: " + fullModelTournamentTable.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

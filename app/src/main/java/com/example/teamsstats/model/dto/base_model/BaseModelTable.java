@@ -82,4 +82,21 @@ public class BaseModelTable {
     public String getGoalDifference() {
         return goalDifference;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelTable{" +
+                "position=" + position +
+                ", team=" + team +
+                ", playedGames=" + playedGames +
+                ", form='" + form + '\'' +
+                ", won='" + won + '\'' +
+                ", draw='" + draw + '\'' +
+                ", lost='" + lost + '\'' +
+                ", points='" + points + '\'' +
+                ", goalsFor='" + goalsFor + '\'' +
+                ", goalsAgainst='" + goalsAgainst + '\'' +
+                ", goalDifference='" + goalDifference + '\'' +
+                '}';
+    }
 }

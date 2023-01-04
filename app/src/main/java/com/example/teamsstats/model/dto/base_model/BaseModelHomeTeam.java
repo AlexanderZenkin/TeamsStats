@@ -47,4 +47,15 @@ public class BaseModelHomeTeam {
     public Integer getLosses() {
         return losses;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelHomeTeam{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", wins=" + wins +
+                ", draws=" + draws +
+                ", losses=" + losses +
+                '}';
+    }
 }

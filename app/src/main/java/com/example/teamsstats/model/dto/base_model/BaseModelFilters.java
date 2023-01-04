@@ -26,4 +26,12 @@ public class BaseModelFilters {
     public String getPermission() {
         return permission;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelFilters{" +
+                "limit='" + limit + '\'' +
+                ", permission='" + permission + '\'' +
+                '}';
+    }
 }

@@ -47,4 +47,15 @@ public class BaseModelHomeTeamDetail {
     public String getCrest() {
         return crest;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelHomeTeamDetail{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", tla='" + tla + '\'' +
+                ", crest='" + crest + '\'' +
+                '}';
+    }
 }

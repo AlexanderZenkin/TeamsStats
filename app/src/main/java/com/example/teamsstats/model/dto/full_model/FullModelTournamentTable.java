@@ -10,9 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-import lombok.ToString;
-
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FullModelTournamentTable {
 
@@ -49,5 +46,16 @@ public class FullModelTournamentTable {
 
     public List<BaseModelStandings> getStandings() {
         return standings;
+    }
+
+    @Override
+    public String toString() {
+        return "FullModelTournamentTable{" +
+                "filters=" + filters +
+                ", area=" + area +
+                ", competition=" + competition +
+                ", season=" + season +
+                ", standings=" + standings +
+                '}';
     }
 }

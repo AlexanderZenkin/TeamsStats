@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-import lombok.ToString;
-
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FullModelH2HMatches {
 
@@ -41,5 +38,15 @@ public class FullModelH2HMatches {
 
     public List<BaseModelMatches> getMatches() {
         return matches;
+    }
+
+    @Override
+    public String toString() {
+        return "FullModelH2HMatches{" +
+                "filters=" + filters +
+                ", resultSet=" + resultSet +
+                ", aggregates=" + aggregates +
+                ", matches=" + matches +
+                '}';
     }
 }

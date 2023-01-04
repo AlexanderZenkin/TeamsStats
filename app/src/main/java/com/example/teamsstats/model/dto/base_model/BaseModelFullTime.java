@@ -26,4 +26,12 @@ public class BaseModelFullTime {
     public String getAway() {
         return away;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelFullTime{" +
+                "home='" + home + '\'' +
+                ", away='" + away + '\'' +
+                '}';
+    }
 }

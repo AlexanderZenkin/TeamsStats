@@ -38,7 +38,7 @@ public class ViewActivityModel extends AndroidViewModel {
                     @Override
                     public void accept(FullModelH2HMatches fullModelH2HMatches) {
                         mutableLiveData.postValue(fullModelH2HMatches);
-                        Log.d(TAG, "acceptDownload: " + fullModelH2HMatches);
+                        Log.d(TAG, "acceptDownload: " + fullModelH2HMatches.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

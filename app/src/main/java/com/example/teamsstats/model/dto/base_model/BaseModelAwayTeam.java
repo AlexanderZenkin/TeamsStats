@@ -40,4 +40,15 @@ public class BaseModelAwayTeam {
     public Integer getLosses() {
         return losses;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelAwayTeam{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", wins=" + wins +
+                ", draws=" + draws +
+                ", losses=" + losses +
+                '}';
+    }
 }

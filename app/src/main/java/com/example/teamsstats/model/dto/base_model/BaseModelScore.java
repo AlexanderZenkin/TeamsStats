@@ -40,4 +40,14 @@ public class BaseModelScore {
     public BaseModelHalfTime getHalfTime() {
         return halfTime;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelScore{" +
+                "winner='" + winner + '\'' +
+                ", duration='" + duration + '\'' +
+                ", fullTime=" + fullTime +
+                ", halfTime=" + halfTime +
+                '}';
+    }
 }

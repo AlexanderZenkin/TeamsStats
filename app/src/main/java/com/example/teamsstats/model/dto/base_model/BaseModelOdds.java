@@ -19,4 +19,11 @@ public class BaseModelOdds {
     public String getMsg() {
         return msg;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelOdds{" +
+                "msg='" + msg + '\'' +
+                '}';
+    }
 }

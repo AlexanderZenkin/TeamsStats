@@ -35,4 +35,14 @@ public class BaseModelStandings {
     public List<BaseModelTable> getTable() {
         return table;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelStandings{" +
+                "stage='" + stage + '\'' +
+                ", type='" + type + '\'' +
+                ", group='" + group + '\'' +
+                ", table=" + table +
+                '}';
+    }
 }

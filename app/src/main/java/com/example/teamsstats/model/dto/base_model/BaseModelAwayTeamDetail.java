@@ -40,4 +40,15 @@ public class BaseModelAwayTeamDetail {
     public String getCrest() {
         return crest;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelAwayTeamDetail{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", tla='" + tla + '\'' +
+                ", crest='" + crest + '\'' +
+                '}';
+    }
 }

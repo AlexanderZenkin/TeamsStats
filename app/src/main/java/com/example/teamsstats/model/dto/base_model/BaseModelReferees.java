@@ -40,4 +40,14 @@ public class BaseModelReferees {
     public String getNationality() {
         return nationality;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelReferees{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", nationality='" + nationality + '\'' +
+                '}';
+    }
 }

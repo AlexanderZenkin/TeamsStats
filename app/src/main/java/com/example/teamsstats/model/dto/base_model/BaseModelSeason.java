@@ -47,4 +47,15 @@ public class BaseModelSeason {
     public Object getWinner() {
         return winner;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelSeason{" +
+                "id=" + id +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", currentMatchday=" + currentMatchday +
+                ", winner=" + winner +
+                '}';
+    }
 }

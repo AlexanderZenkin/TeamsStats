@@ -38,7 +38,7 @@ public class MainActivityModel extends AndroidViewModel {
                     @Override
                     public void accept(FullModelScheduledMatches fullModelScheduledMatches) {
                         mutableLiveData.postValue(fullModelScheduledMatches);
-                        Log.d(TAG, "acceptDownload: " + fullModelScheduledMatches);
+                        Log.d(TAG, "acceptDownload: " + fullModelScheduledMatches.toString());
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -26,4 +26,12 @@ public class BaseModelHalfTime {
     public String getAway() {
         return away;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelHalfTime{" +
+                "home='" + home + '\'' +
+                ", away='" + away + '\'' +
+                '}';
+    }
 }

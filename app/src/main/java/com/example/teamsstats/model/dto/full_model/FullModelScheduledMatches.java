@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-import lombok.ToString;
-
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FullModelScheduledMatches {
 
@@ -41,5 +38,15 @@ public class FullModelScheduledMatches {
 
     public List<BaseModelMatches> getMatches() {
         return matches;
+    }
+
+    @Override
+    public String toString() {
+        return "FullModelScheduledMatches{" +
+                "filters=" + filters +
+                ", resultSet=" + resultSet +
+                ", competition=" + competition +
+                ", matches=" + matches +
+                '}';
     }
 }

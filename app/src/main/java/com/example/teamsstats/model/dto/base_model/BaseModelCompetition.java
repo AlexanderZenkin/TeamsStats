@@ -40,4 +40,15 @@ public class BaseModelCompetition {
     public String getEmblem() {
         return emblem;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelCompetition{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
+                ", emblem='" + emblem + '\'' +
+                '}';
+    }
 }

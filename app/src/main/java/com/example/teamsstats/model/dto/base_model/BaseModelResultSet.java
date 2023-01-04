@@ -40,4 +40,14 @@ public class BaseModelResultSet {
     public String getLast() {
         return last;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelResultSet{" +
+                "count=" + count +
+                ", competitions='" + competitions + '\'' +
+                ", first='" + first + '\'' +
+                ", last='" + last + '\'' +
+                '}';
+    }
 }

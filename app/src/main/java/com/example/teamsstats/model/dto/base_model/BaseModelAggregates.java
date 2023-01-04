@@ -33,4 +33,14 @@ public class BaseModelAggregates {
     public BaseModelAwayTeam getAwayTeam() {
         return awayTeam;
     }
+
+    @Override
+    public String toString() {
+        return "BaseModelAggregates{" +
+                "numberOfMatches=" + numberOfMatches +
+                ", totalGoals=" + totalGoals +
+                ", homeTeam=" + homeTeam +
+                ", awayTeam=" + awayTeam +
+                '}';
+    }
 }
