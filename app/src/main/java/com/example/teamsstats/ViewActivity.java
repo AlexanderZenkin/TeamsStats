@@ -3,6 +3,7 @@ package com.example.teamsstats;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,8 +21,9 @@ import com.example.teamsstats.model.dto.full_model.FullModelH2HMatches;
 
 public class ViewActivity extends AppCompatActivity implements ListItemClickListener, View.OnClickListener {
 
-    private Button stake;
+    private static final String TAG = "TableActivity";
 
+    private Button stake;
     private String matchId;
     private String idHomeTeam;
     private String idAwayTeam;
@@ -47,6 +49,12 @@ public class ViewActivity extends AppCompatActivity implements ListItemClickList
         Button searchH2HMatches = findViewById(R.id.home_team_matches);
         searchH2HMatches.setOnClickListener(this);
 
+        Button searchLastAwayTeamMatches = findViewById(R.id.last_away_team_matches);
+        searchLastAwayTeamMatches.setOnClickListener(this);
+
+        Button searchLastHomeTeamMatches = findViewById(R.id.last_home_team_matches);
+        searchLastHomeTeamMatches.setOnClickListener(this);
+
         Button searchLastMatchesAwayTeam = findViewById(R.id.away_team_matches);
         searchLastMatchesAwayTeam.setOnClickListener(this);
     }
@@ -63,10 +71,12 @@ public class ViewActivity extends AppCompatActivity implements ListItemClickList
         viewActivityModel.getMutableLiveData().observe(this, new Observer<FullModelH2HMatches>() {
             @Override
             public void onChanged(FullModelH2HMatches fullModelH2HMatches) {
+                Log.d(TAG, "ViewActivity_in_model_h2h: " + fullModelH2HMatches.toString());
 
                 JsonParser jsonParser = new JsonParser();
                 matches = jsonParser.inflateListMatches(fullModelH2HMatches);
                 setView(R.id.recycler_view, matches);
+                Log.d(TAG, "ViewActivity_matches_list_h2h: " + matches.toString());
             }
         });
     }
@@ -78,10 +88,12 @@ public class ViewActivity extends AppCompatActivity implements ListItemClickList
         viewActivityModel.getMutableLiveData().observe(this, new Observer<FullModelH2HMatches>() {
             @Override
             public void onChanged(FullModelH2HMatches fullModelH2HMatches) {
+                Log.d(TAG, "ViewActivity_in_model_home_away: " + fullModelH2HMatches.toString());
 
                 JsonParser jsonParser = new JsonParser();
                 matches = jsonParser.inflateListMatches(fullModelH2HMatches);
                 setView(R.id.recycler_view, matches);
+                Log.d(TAG, "ViewActivity_matches_list_home_away: " + matches.toString());
             }
         });
     }
@@ -116,6 +128,16 @@ public class ViewActivity extends AppCompatActivity implements ListItemClickList
 
             case R.id.away_team_matches:
                 getStatisticHomeAndAway(idAwayTeam, idCompetition, "AWAY");
+                stake.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.last_home_team_matches:
+                getStatisticHomeAndAway(idHomeTeam, idCompetition, null);
+                stake.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.last_away_team_matches:_team_matches:
+                getStatisticHomeAndAway(idAwayTeam, idCompetition, null);
                 stake.setVisibility(View.VISIBLE);
                 break;
 

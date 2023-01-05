@@ -21,6 +21,7 @@
 
         <Button
             android:id="@+id/search_league_champions"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -28,6 +29,7 @@
 
         <Button
             android:id="@+id/search_league_germany"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -35,6 +37,7 @@
 
         <Button
             android:id="@+id/search_league_england"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,6 +45,7 @@
 
         <Button
             android:id="@+id/search_league_italy"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -55,6 +59,7 @@
 
         <Button
             android:id="@+id/search_Ligue_1"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -62,6 +67,7 @@
 
         <Button
             android:id="@+id/search_league_eredivisie"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -69,6 +75,7 @@
 
         <Button
             android:id="@+id/search_league_spain"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -76,6 +83,7 @@
 
         <Button
             android:id="@+id/search_primeira_liga"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -85,5 +93,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 </LinearLayout>

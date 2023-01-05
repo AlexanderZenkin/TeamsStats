@@ -2,14 +2,14 @@ package com.example.teamsstats.model;
 
 public class Matches {
 
-    int id;
-    String homeTeam;
-    String awayTeam;
-    String result;
-    String matchId;
-    String idHomeTeam;
-    String idAwayTeam;
-    String idCompetition;
+    private int id;
+    private String homeTeam;
+    private String awayTeam;
+    private String result;
+    private String matchId;
+    private String idHomeTeam;
+    private String idAwayTeam;
+    private String idCompetition;
 
     public Matches(String homeTeam, String awayTeam, String result, String matchId,
                    String idHomeTeam, String idAwayTeam, String idCompetition) {
@@ -52,5 +52,19 @@ public class Matches {
 
     public String getIdCompetition() {
         return idCompetition;
+    }
+
+    @Override
+    public String toString() {
+        return "Matches{" +
+                "id=" + id +
+                ", homeTeam='" + homeTeam + '\'' +
+                ", awayTeam='" + awayTeam + '\'' +
+                ", result='" + result + '\'' +
+                ", matchId='" + matchId + '\'' +
+                ", idHomeTeam='" + idHomeTeam + '\'' +
+                ", idAwayTeam='" + idAwayTeam + '\'' +
+                ", idCompetition='" + idCompetition + '\'' +
+                '}';
     }
 }

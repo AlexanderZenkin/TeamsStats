@@ -2,15 +2,15 @@ package com.example.teamsstats.model;
 
 public class Table {
 
-    String teamName;
-    String teamPosition;
-    String playedGames;
-    String teamForm;
-    String teamWon;
-    String teamDraw;
-    String teamLost;
-    String teamGoalsFor;
-    String teamGoalsAgainst;
+    private String teamName;
+    private String teamPosition;
+    private String playedGames;
+    private String teamForm;
+    private String teamWon;
+    private String teamDraw;
+    private String teamLost;
+    private String teamGoalsFor;
+    private String teamGoalsAgainst;
 
     public Table(String teamName, String teamPosition, String playedGames, String teamForm,
                  String teamWon, String teamDraw, String teamLost, String teamGoalsFor, String teamGoalsAgainst) {
@@ -59,5 +59,20 @@ public class Table {
 
     public String getTeamGoalsAgainst() {
         return teamGoalsAgainst;
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "teamName='" + teamName + '\'' +
+                ", teamPosition='" + teamPosition + '\'' +
+                ", playedGames='" + playedGames + '\'' +
+                ", teamForm='" + teamForm + '\'' +
+                ", teamWon='" + teamWon + '\'' +
+                ", teamDraw='" + teamDraw + '\'' +
+                ", teamLost='" + teamLost + '\'' +
+                ", teamGoalsFor='" + teamGoalsFor + '\'' +
+                ", teamGoalsAgainst='" + teamGoalsAgainst + '\'' +
+                '}';
     }
 }

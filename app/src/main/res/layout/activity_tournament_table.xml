@@ -9,24 +9,27 @@
 
         <Button
             android:id="@+id/total_matches"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="TM" />
+            android:text="@string/tournament_table" />
 
         <Button
             android:id="@+id/matches_home"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="HM" />
+            android:text="@string/home_game_tournament_table" />
 
         <Button
             android:id="@+id/matches_away"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="AM" />
+            android:text="@string/away_game_tournament_table" />
     </LinearLayout>
 
     <TextView
@@ -129,6 +132,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_tournament_table"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 
 </TableLayout>

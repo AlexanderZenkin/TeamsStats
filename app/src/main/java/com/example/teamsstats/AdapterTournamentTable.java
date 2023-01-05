@@ -9,17 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.TableList;
 
 public class AdapterTournamentTable extends RecyclerView.Adapter <AdapterTournamentTable.MyViewHolder> {
 
     private TableList tableList;
     private int numberItems;
+    final private ListItemClickListener mOnClickListener;
 
-    public AdapterTournamentTable(TableList tableList, int length) {
+    public AdapterTournamentTable(TableList tableList, int length, ListItemClickListener listItemClickListener) {
 
         this.numberItems = length;
         this.tableList = tableList;
+        this.mOnClickListener = listItemClickListener;
     }
 
     @NonNull
@@ -45,7 +48,7 @@ public class AdapterTournamentTable extends RecyclerView.Adapter <AdapterTournam
         return numberItems;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView teamName;
         private TextView teamPosition;
@@ -62,8 +65,8 @@ public class AdapterTournamentTable extends RecyclerView.Adapter <AdapterTournam
         public MyViewHolder(View itemView) {
             super(itemView);
 
-
             teamPosition = itemView.findViewById(R.id.team_position);
+            teamPosition.setOnClickListener(this);
             teamName = itemView.findViewById(R.id.team_name);
             playedGames = itemView.findViewById(R.id.played_games);
 
@@ -100,6 +103,13 @@ public class AdapterTournamentTable extends RecyclerView.Adapter <AdapterTournam
             teamLost.setText(teamLostData);
             teamGoalsFor.setText(teamGoalsForData);
             teamGoalsAgainst.setText(teamGoalsAgainstData);
+        }
+
+        @Override
+        public void onClick(View view) {
+
+            int position = getAdapterPosition();
+            mOnClickListener.onListItemClick(position);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.teamsstats;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableRow;
@@ -16,12 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamsstats.activiti_model.TableActivityModel;
+import com.example.teamsstats.interfaces.ListItemClickListener;
 import com.example.teamsstats.model.TableList;
 import com.example.teamsstats.model.dto.full_model.FullModelTournamentTable;
 
-public class TableActivity extends AppCompatActivity implements View.OnClickListener {
+public class TableActivity extends AppCompatActivity implements View.OnClickListener, ListItemClickListener {
 
-    private static final String TAG = "ViewActivity";
+    private static final String TAG = "TableActivity";
 
     private TableList tableList;
     private TextView tournamentTableTv;
@@ -57,10 +59,12 @@ public class TableActivity extends AppCompatActivity implements View.OnClickList
         tableActivityModel.getMutableLiveData().observe(this, new Observer<FullModelTournamentTable>() {
             @Override
             public void onChanged(FullModelTournamentTable fullModelTournamentTable) {
+                Log.d(TAG, "TableActivity_in_model: " + fullModelTournamentTable.toString());
 
                 JsonParser jsonParser = new JsonParser();
                 tableList = jsonParser.inflateTableList(fullModelTournamentTable, count);
                 setView(tableList);
+                Log.d(TAG, "TableActivity_table_list: " + tableList.toString());
             }
         });
     }
@@ -70,7 +74,7 @@ public class TableActivity extends AppCompatActivity implements View.OnClickList
         RecyclerView recyclerView = findViewById(R.id.recycler_view_tournament_table);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(new AdapterTournamentTable(tableList, tableList.tableList.length));
+        recyclerView.setAdapter(new AdapterTournamentTable(tableList, tableList.tableList.length, this));
     }
 
     @Override
@@ -101,5 +105,15 @@ public class TableActivity extends AppCompatActivity implements View.OnClickList
                 tournamentTableHeaderTv.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    @Override
+    public void onListItemClick(int clickItemIndex) {
+        int duration = Toast.LENGTH_LONG;
+        if (toastError != null) {
+            toastError.cancel();
+        }
+        toastError = Toast.makeText(this, tableList.tableList[clickItemIndex].getTeamPosition(), duration);
+        toastError.show();
     }
 }

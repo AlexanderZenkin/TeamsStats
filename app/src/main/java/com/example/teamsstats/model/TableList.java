@@ -1,5 +1,7 @@
 package com.example.teamsstats.model;
 
+import java.util.Arrays;
+
 public class TableList {
 
     public Table[] tableList;
@@ -12,5 +14,12 @@ public class TableList {
                          String teamWon, String teamDraw, String teamLost, String teamGoalsFor, String teamGoalsAgainst, int id) {
         Table list = new Table(teamPosition, teamName, playedGames, teamForm, teamWon, teamDraw, teamLost, teamGoalsFor, teamGoalsAgainst);
         tableList[id] = list;
+    }
+
+    @Override
+    public String toString() {
+        return "TableList{" +
+                "tableList=" + Arrays.toString(tableList) +
+                '}';
     }
 }

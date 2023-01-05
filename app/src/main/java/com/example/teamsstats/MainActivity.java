@@ -2,9 +2,9 @@ package com.example.teamsstats;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -22,10 +22,11 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ListItemClickListener {
 
+    private static final String TAG = "MainActivity";
+
     private ListMatches matches;
 
     private MainActivityModel mainActivityModel;
-    private Toast toastError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainActivityModel.getMutableLiveData().observe(this, new Observer<FullModelScheduledMatches>() {
             @Override
             public void onChanged(FullModelScheduledMatches fullModelScheduledMatches) {
+                Log.d(TAG, "MainActivity_in_model: " + fullModelScheduledMatches.toString());
 
                 JsonParser jsonParser = new JsonParser();
                 matches = jsonParser.inflateScheduledMatches(fullModelScheduledMatches);
                 setView(R.id.recycler_view, matches);
+                Log.d(TAG, "MainActivity_scheduled_matches: " + matches.toString());
             }
         });
     }
@@ -125,18 +128,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onListItemClick(int clickItemIndex) {
 
-        int duration = Toast.LENGTH_LONG;
-        if (toastError != null) {
-            toastError.cancel();
-        }
-        toastError = Toast.makeText(this, matches.listMatches[clickItemIndex].getHomeTeam(), duration);
-        toastError.show();
-
         Intent intent = new Intent(this, ViewActivity.class);
         intent.putExtra("matchId", matches.listMatches[clickItemIndex].getMatchId());
         intent.putExtra("idHomeTeam", matches.listMatches[clickItemIndex].getIdHomeTeam());
         intent.putExtra("idAwayTeam", matches.listMatches[clickItemIndex].getIdAwayTeam());
         intent.putExtra("idCompetition", matches.listMatches[clickItemIndex].getIdCompetition());
         startActivity(intent);
+        Log.d(TAG, "MainActivity_intent: " + intent.getStringExtra("matchId")
+        + intent.getStringExtra("idHomeTeam") + intent.getStringExtra("idAwayTeam")
+        + intent.getStringExtra("idCompetition"));
     }
 }

@@ -21,14 +21,15 @@
 
         <Button
             android:id="@+id/h_2_h_matches"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-
             android:text="@string/H2HMatches" />
 
         <Button
             android:id="@+id/home_team_matches"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -36,13 +37,39 @@
 
         <Button
             android:id="@+id/away_team_matches"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@string/away_team_matches" />
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/last_home_team_matches"
+            android:textSize="19px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/last_home_team_matches" />
+
+        <Button
+            android:id="@+id/last_away_team_matches"
+            android:textSize="19px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/last_away_team_matches" />
+
         <Button
             android:id="@+id/turnament_table"
+            android:textSize="19px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -52,7 +79,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/stavka"
